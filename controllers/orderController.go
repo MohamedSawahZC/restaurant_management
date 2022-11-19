@@ -2,15 +2,15 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
 
+	"fmt"
+
 	"github.com/MohamedSawahZC/restaurant_management/database"
 	"github.com/MohamedSawahZC/restaurant_management/models"
 	"github.com/gin-gonic/gin"
-
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -149,5 +149,20 @@ func OrderItemCreator(order models.Order) string{
 
 	orderCollection.InsertOne(ctx,order)
 	defer cancel()
+	return order.Order_id
+}
+
+
+func OrderItemOrderCreator(order models.Order) string {
+	var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+
+	order.Created_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
+	order.Updated_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
+	order.ID = primitive.NewObjectID()
+	order.Order_id = order.ID.Hex()
+
+	orderCollection.InsertOne(ctx, order)
+	defer cancel()
+
 	return order.Order_id
 }

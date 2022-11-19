@@ -14,7 +14,7 @@ Last_name		*string				 `json:"last_name" validate:"required,min=2,max=100"`
 Password		*string				 `json:"password" validate:"required,min=6,max=100"`
 Email			*string				 `json:"email" validate:"required,email"`
 Avatar			*string				 `json:"avatar"`
-phone			*string				 `json:"phone" validate:"required"`
+Phone			*string				 `json:"phone"`
 Token			*string				 `json:"token"`
 Refresh_token	*string				 `json:"refresh_token"`
 Created_at		time.Time			 `json:"created_at"`
