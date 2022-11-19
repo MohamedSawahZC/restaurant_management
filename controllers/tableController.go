@@ -5,10 +5,14 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/MohamedSawahZC/restaurant_management/database"
 	"github.com/MohamedSawahZC/restaurant_management/models"
 	"github.com/gin-gonic/gin"
+
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
+var tableCollection *mongo.Collection = database.OpenCollection(database.Client,"table")
 
 func GetTables() gin.HandlerFunc{
 	return func(c *gin.Context){
